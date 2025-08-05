@@ -52,15 +52,17 @@ logger = logging.getLogger(__name__)
 # --- AfricasTalking SMS configuration (for Nigerian SMS) ---
 username = "smartfarm" # Replace with your username
 api_key = "your-africastalking-api-key" # Replace with your API key
+
 # africastalking.initialize(username, api_key)
 # sms = africastalking.SMS
+
 
 
 # --- Database Models ---
 class User(db.Model):
     __tablename__ = 'users'
     # Other class attributes here
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     phone = db.Column(db.String(20), nullable=False)

@@ -7,7 +7,7 @@ Email: orders@igboechejohn@gmail.com
 """
 
 # --- Imports ---
-from flask import Flask, request, jsonify, render_template_string, redirect, url_for
+from flask import Flask, request, jsonify, render_template, redirect, url_for
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 # from flask_bcrypt import Bcrypt

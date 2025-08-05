@@ -378,7 +378,7 @@ def check_sensor_alerts(user_id, device_id, sensor_data):
 def index():
     """Serve the main HTML page"""
     return render_template('index.html')
-    
+
 @app.route('/api/register', methods=['POST'])
 def register():
     """Register a new farmer"""

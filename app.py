@@ -50,7 +50,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # --- AfricasTalking SMS configuration (for Nigerian SMS) ---
-username = "smartfarm"  # Replace with your username
+username = "smartfarm" # Replace with your username
 api_key = "your-africastalking-api-key"  # Replace with your API key
 # africastalking.initialize(username, api_key)
 # sms = africastalking.SMS

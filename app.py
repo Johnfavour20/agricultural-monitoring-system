@@ -377,7 +377,11 @@ def check_sensor_alerts(user_id, device_id, sensor_data):
 @app.route('/')
 def index():
     """Serve the main HTML page"""
-    return render_template('index.html')
+    try:
+        return render_template('index.html')
+    except Exception as e:
+        logger.error(f"Error rendering index.html: {str(e)}")
+        return "Error: Unable to load main page. Please ensure index.html exists in the 'templates' folder.", 500
 
 @app.route('/api/register', methods=['POST'])
 def register():

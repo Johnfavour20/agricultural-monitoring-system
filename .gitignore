@@ -1,0 +1,6 @@
+# Ignore temporary database files
+*.db
+*.db-journal
+
+# Ignore log files
+*.log

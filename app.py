@@ -68,15 +68,15 @@ class User(db.Model):
     phone = db.Column(db.String(20), nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
     farm_type = db.Column(db.Enum('crop', 'greenhouse', 'livestock', 'mixed', 'organic', name='farm_type_enum'),
-                            nullable=False)
+                             nullable=False)
     location = db.Column(db.String(200), nullable=False)
     farm_size = db.Column(db.Numeric(10, 2))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow,
-                            onupdate=datetime.utcnow)
+                             onupdate=datetime.utcnow)
     is_active = db.Column(db.Boolean, default=True)
     subscription_type = db.Column(db.Enum('free', 'basic', 'premium', 'enterprise', name='subscription_type_enum'),
-                                    default='free')
+                                     default='free')
 
     # Relationships
     devices = db.relationship('Device', backref='owner', lazy=True, cascade='all,delete-orphan')
@@ -90,7 +90,7 @@ class Device(db.Model):
     device_id = db.Column(db.String(50), unique=True, nullable=False)
     device_name = db.Column(db.String(100), nullable=False)
     device_type = db.Column(db.Enum('esp32', 'arduino', 'raspberry_pi', 'custom', name='device_type_enum'),
-                             default='esp32')
+                              default='esp32')
     firmware_version = db.Column(db.String(20))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     location_name = db.Column(db.String(100))
@@ -131,14 +131,14 @@ class Order(db.Model):
     customer_phone = db.Column(db.String(20), nullable=False)
     customer_email = db.Column(db.String(100), nullable=False)
     order_type = db.Column(db.Enum('starter_kit', 'professional_kit', 'enterprise_kit', 'custom',
-                                    'individual_component', name='order_type_enum'), nullable=False)
+                                     'individual_component', name='order_type_enum'), nullable=False)
     items = db.Column(db.JSON, nullable=False)
     total_amount = db.Column(db.Numeric(10, 2), nullable=False)
     currency = db.Column(db.String(3), default='NGN')
     order_status = db.Column(db.Enum('pending', 'confirmed', 'processing', 'shipped',
                                      'delivered', 'cancelled', name='order_status_enum'), default='pending')
     payment_status = db.Column(db.Enum('pending', 'paid', 'failed', 'refunded', name='payment_status_enum'),
-                                default='pending')
+                                 default='pending')
     payment_method = db.Column(db.Enum('bank_transfer', 'card', 'mobile_money',
                                          'cash_on_delivery', name='payment_method_enum'), default='bank_transfer')
     shipping_address = db.Column(db.Text, nullable=False)
@@ -146,7 +146,7 @@ class Order(db.Model):
     notes = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow,
-                            onupdate=datetime.utcnow)
+                             onupdate=datetime.utcnow)
 
 class Alert(db.Model):
     __tablename__ = 'alerts'
@@ -378,8 +378,7 @@ def check_sensor_alerts(user_id, device_id, sensor_data):
 def index():
     """Serve the main HTML page"""
     return render_template('index.html')
-        
-
+    
 @app.route('/api/register', methods=['POST'])
 def register():
     """Register a new farmer"""

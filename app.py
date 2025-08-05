@@ -378,8 +378,7 @@ def check_sensor_alerts(user_id, device_id, sensor_data):
 def index():
     """Serve the main HTML page"""
     return render_template('index.html')
-        html_content = f.read()
-    return render_template_string(html_content)
+        
 
 @app.route('/api/register', methods=['POST'])
 def register():

@@ -68,15 +68,15 @@ class User(db.Model):
     phone = db.Column(db.String(20), nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
     farm_type = db.Column(db.Enum('crop', 'greenhouse', 'livestock', 'mixed', 'organic', name='farm_type_enum'),
-                           nullable=False)
+                            nullable=False)
     location = db.Column(db.String(200), nullable=False)
     farm_size = db.Column(db.Numeric(10, 2))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow,
-                           onupdate=datetime.utcnow)
+                            onupdate=datetime.utcnow)
     is_active = db.Column(db.Boolean, default=True)
     subscription_type = db.Column(db.Enum('free', 'basic', 'premium', 'enterprise', name='subscription_type_enum'),
-                                   default='free')
+                                    default='free')
 
     # Relationships
     devices = db.relationship('Device', backref='owner', lazy=True, cascade='all,delete-orphan')
@@ -131,22 +131,22 @@ class Order(db.Model):
     customer_phone = db.Column(db.String(20), nullable=False)
     customer_email = db.Column(db.String(100), nullable=False)
     order_type = db.Column(db.Enum('starter_kit', 'professional_kit', 'enterprise_kit', 'custom',
-                                   'individual_component', name='order_type_enum'), nullable=False)
+                                    'individual_component', name='order_type_enum'), nullable=False)
     items = db.Column(db.JSON, nullable=False)
     total_amount = db.Column(db.Numeric(10, 2), nullable=False)
     currency = db.Column(db.String(3), default='NGN')
     order_status = db.Column(db.Enum('pending', 'confirmed', 'processing', 'shipped',
                                      'delivered', 'cancelled', name='order_status_enum'), default='pending')
     payment_status = db.Column(db.Enum('pending', 'paid', 'failed', 'refunded', name='payment_status_enum'),
-                               default='pending')
+                                default='pending')
     payment_method = db.Column(db.Enum('bank_transfer', 'card', 'mobile_money',
-                                       'cash_on_delivery', name='payment_method_enum'), default='bank_transfer')
+                                         'cash_on_delivery', name='payment_method_enum'), default='bank_transfer')
     shipping_address = db.Column(db.Text, nullable=False)
     tracking_number = db.Column(db.String(50))
     notes = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow,
-                           onupdate=datetime.utcnow)
+                            onupdate=datetime.utcnow)
 
 class Alert(db.Model):
     __tablename__ = 'alerts'
@@ -172,9 +172,9 @@ def send_sms_notification(phone_number, message):
     try:
         # Format phone number for Nigeria
         if phone_number.startswith('+234'):
-            phone_number = phone_number[1:]  # Remove + for AfricasTalking
+            phone_number = phone_number[1:] # Remove + for AfricasTalking
         elif phone_number.startswith('0'):
-            phone_number = '234' + phone_number[1:]  # Convert local format
+            phone_number = '234' + phone_number[1:] # Convert local format
         # response = sms.send(message, [phone_number])
         # logger.info(f"SMS sent to {phone_number}: {response}")
         # return True
@@ -186,10 +186,10 @@ def send_sms_notification(phone_number, message):
 def send_email_notification(to_email, subject, body):
     """Send email notification"""
     try:
-        smtp_server = "smtp.gmail.com"  # Configure your SMTP server
+        smtp_server = "smtp.gmail.com" # Configure your SMTP server
         smtp_port = 587
-        email_user = "igboechejohn@gmail.com"  # Your email
-        email_password = "your-email-password"  # Your email password
+        email_user = "igboechejohn@gmail.com" # Your email
+        email_password = "your-email-password" # Your email password
 
         msg = MIMEMultipart()
         msg['From'] = email_user
@@ -273,7 +273,7 @@ def calculate_compression_ratio(device_id, new_data):
         last_reading = SensorData.query.filter_by(device_id=device_id).order_by(SensorData.timestamp.desc()).first()
 
         if not last_reading:
-            return 0.0, False  # No compression for first reading
+            return 0.0, False # No compression for first reading
 
         # Check if values are within prediction thresholds
         temp_diff = abs(float(last_reading.temperature or 0) - float(new_data.get('temperature', 0)))
@@ -284,7 +284,7 @@ def calculate_compression_ratio(device_id, new_data):
         # Define thresholds for prediction
         if (temp_diff < 1.0 and humidity_diff < 2.0 and
             moisture_diff < 1.5 and light_diff < 50):
-            return 85.0, True  # High compression - data was predicted
+            return 85.0, True # High compression - data was predicted
         else:
             return 65.0, False # Lower compression - actual transmission needed
     except Exception as e:
@@ -721,7 +721,8 @@ def internal_error(error):
 @app.cli.command('create-db')
 def create_db_command():
     """Creates the database tables."""
-    db.create_all()
+    with app.app_context():
+        db.create_all()
     print("Database tables created successfully!")
     logger.info("Database tables created successfully")
 
@@ -737,4 +738,3 @@ if __name__ == '__main__':
         port=int(os.environ.get('PORT', 5000)),
         debug=os.environ.get('FLASK_ENV') == 'development'
     )
-            '

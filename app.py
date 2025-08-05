@@ -377,7 +377,7 @@ def check_sensor_alerts(user_id, device_id, sensor_data):
 @app.route('/')
 def index():
     """Serve the main HTML page"""
-    with open('smart_farm_system.html', 'r') as f:
+    return render_template('index.html')
         html_content = f.read()
     return render_template_string(html_content)
 

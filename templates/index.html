@@ -924,4 +924,391 @@
                 </div>
 
                 <div class="alerts-section">
-                    <h3>🚨 Smart Ale
+                    <h3>🚨 Smart Alerts and Notifications</h3>
+                    <div id="alertsContainer">
+                        <div class="alert critical">
+                            <strong>CRITICAL:</strong> Soil moisture dropped to 15% in Zone 3 (East Plot). Automatic irrigation initiated.
+                        </div>
+                        <div class="alert">
+                            <strong>WARNING:</strong> Greenhouse temperature is predicted to exceed 35°C in the next 2 hours. Recommend opening vents.
+                        </div>
+                        <div class="alert">
+                            <strong>INFO:</strong> Sensor data feed stable. Data compression is currently running at 80% efficiency.
+                        </div>
+                    </div>
+                    <div class="control-buttons" style="margin-top: 20px;">
+                        <button class="btn" onclick="openAlertConfigModal()">⚙️ Configure Alert Thresholds</button>
+                        <button class="btn btn-secondary" onclick="clearAlerts()">✅ Clear All Alerts</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="analytics" class="tab-content">
+                <div class="chart-container">
+                    <h3>7-Day Data Trend Analysis</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="mainChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Historical Data & Crop Health Correlation</h3>
+                    <p style="color: #4a7c59;">(This section would feature advanced charts correlating sensor data with crop yield and health scores.)</p>
+                    <div class="control-buttons">
+                        <button class="btn">🔬 Run Correlation Analysis</button>
+                        <button class="btn btn-secondary">⬇️ Export Data (CSV)</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="reports" class="tab-content">
+                <h2 style="color: #2d5a27; margin-bottom: 20px;">📋 Generate Farm Reports</h2>
+                <div class="form-group">
+                    <label for="reportType">Report Type</label>
+                    <select id="reportType">
+                        <option value="daily">Daily Summary</option>
+                        <option value="weekly">Weekly Trend</option>
+                        <option value="health">Crop Health Assessment</option>
+                        <option value="financial">Financial & Resource Usage</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="dateRange">Date Range</label>
+                    <input type="text" id="dateRange" placeholder="Select a date range">
+                </div>
+                <button class="btn" onclick="generateReport()">🚀 Generate Report</button>
+
+                <div class="report-preview" id="reportPreview" style="display: none;">
+                    <h4>Report Preview: Weekly Trend (2025-10-28 to 2025-11-03)</h4>
+                    <p><strong>Summary:</strong> Soil moisture was optimal for 85% of the week. Average temperature was 24.1°C, well within healthy range.</p>
+                    <p><strong>Action Items:</strong> The system prevented 3 critical dehydration events. **Data Compression saved 81% of expected bandwidth.**</p>
+                    <button class="btn btn-secondary" style="margin-top: 15px;">⬇️ Download PDF Report</button>
+                </div>
+            </div>
+
+            <div id="hardware" class="tab-content">
+                <h2 style="color: #2d5a27; margin-bottom: 20px;">🔧 System Hardware Status</h2>
+                
+                <div class="info-section">
+                    <h4>📡 Gateway Connection Status</h4>
+                    <p>IoT Gateway Name: **FarmHub-Z3**</p>
+                    <p>Status: <span style="color: #4caf50; font-weight: bold;">ONLINE</span></p>
+                    <p>Last Data Ping: 5 seconds ago</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card" style="border-left-color: #1976d2;">
+                        <h3>Microcontroller</h3>
+                        <div class="stat-value">ESP32</div>
+                        <div class="stat-unit">Model</div>
+                    </div>
+                    <div class="stat-card" style="border-left-color: #795548;">
+                        <h3>Battery Life</h3>
+                        <div class="stat-value">95</div>
+                        <div class="stat-unit">% Remaining</div>
+                    </div>
+                    <div class="stat-card" style="border-left-color: #ff9800;">
+                        <h3>Firmware Version</h3>
+                        <div class="stat-value">1.4.2</div>
+                        <div class="stat-unit">Last Update: 2025-10-01</div>
+                    </div>
+                </div>
+                
+                <div class="alerts-section">
+                    <h3>🔌 Connected Sensors</h3>
+                    <div class="hardware-list">
+                        <div class="hardware-item">
+                            <h5>Soil Moisture Sensor (Capacitive)</h5>
+                            <p>Status: Online</p>
+                            <p>Reading: 42.8%</p>
+                        </div>
+                        <div class="hardware-item">
+                            <h5>Air Temp/Humidity (DHT22)</h5>
+                            <p>Status: Online</p>
+                            <p>Reading: 25.4°C / 68.2%</p>
+                        </div>
+                        <div class="hardware-item">
+                            <h5>Light Intensity (BH1750)</h5>
+                            <p>Status: Online</p>
+                            <p>Reading: 875 lux</p>
+                        </div>
+                        <div class="hardware-item" style="border-left-color: #f44336;">
+                            <h5>Rain Gauge</h5>
+                            <p>Status: <span style="color: #f44336; font-weight: bold;">OFFLINE</span></p>
+                            <p>Error: Connection Timeout</p>
+                        </div>
+                    </div>
+                    <button class="btn" style="margin-top: 15px;" onclick="rescanSensors()">🔄 Rescan Sensors</button>
+                    <button class="btn btn-secondary" onclick="updateFirmware()">⬆️ Update Firmware</button>
+                </div>
+            </div>
+
+            <div id="orders" class="tab-content">
+                <h2 style="color: #2d5a27; margin-bottom: 20px;">🛒 My Orders</h2>
+                <div class="hardware-list">
+                    <div class="hardware-item" style="border-left-color: #ffa726;">
+                        <h5>Order #SF9012 - Complete Starter Kit</h5>
+                        <p>Status: **Shipped**</p>
+                        <p>Date: 2025-10-20</p>
+                        <p class="price">Total: $499.99</p>
+                    </div>
+                    <div class="hardware-item" style="border-left-color: #4caf50;">
+                        <h5>Order #SF9055 - 5x Soil Moisture Sensors</h5>
+                        <p>Status: **Delivered**</p>
+                        <p>Date: 2025-11-01</p>
+                        <p class="price">Total: $75.00</p>
+                    </div>
+                </div>
+                
+                <div class="order-section">
+                    <h3>Need to place a new order or check an existing one?</h3>
+                    <a href="tel:+2347088489277" class="btn contact-btn" style="background: white; color: #2d5a27;">Call Order Hotline</a>
+                    <button class="btn btn-secondary" onclick="showOnlineStore()" style="background: white; color: #2d5a27; border: 2px solid #2d5a27;">Track Shipments</button>
+                </div>
+            </div>
+
+            <div id="settings" class="tab-content">
+                <h2 style="color: #2d5a27; margin-bottom: 20px;">⚙️ User & Farm Settings</h2>
+                
+                <div class="info-section">
+                    <h4>👤 Account Details</h4>
+                    <p>Name: John Doe</p>
+                    <p>Email: john@smartfarm.com</p>
+                    <p>Phone: **0708 848 9277**</p>
+                    <button class="btn btn-secondary" onclick="openProfileModal()">✏️ Edit Profile</button>
+                </div>
+
+                <div class="alerts-section">
+                    <h4>📍 Farm Configuration</h4>
+                    <div class="form-group">
+                        <label for="farmName">Farm Name</label>
+                        <input type="text" id="farmName" value="Doe's Green Acres">
+                    </div>
+                    <div class="form-group">
+                        <label for="farmLocation">Farm Location (GPS)</label>
+                        <input type="text" id="farmLocation" value="7.3775, 3.9470 (Ibadan, Nigeria)">
+                    </div>
+                    <div class="form-group">
+                        <label for="defaultCrop">Default Crop</label>
+                        <select id="defaultCrop">
+                            <option>Maize</option>
+                            <option selected>Cassava</option>
+                            <option>Tomatoes</option>
+                        </select>
+                    </div>
+                    <button class="btn">💾 Save Farm Settings</button>
+                </div>
+
+                <div class="alerts-section">
+                    <h4>🛠️ Sensor Calibration</h4>
+                    <p>Adjust the base readings for accurate soil data.</p>
+                    <div class="calibration-grid">
+                        <div class="calibration-card">
+                            <h5>Soil Moisture Offset</h5>
+                            <input type="number" value="1.5" style="width: 100%; padding: 8px;">
+                        </div>
+                        <div class="calibration-card">
+                            <h5>pH Sensor Calibration</h5>
+                            <input type="number" value="7.0" style="width: 100%; padding: 8px;">
+                        </div>
+                    </div>
+                    <button class="btn">✨ Apply Calibration</button>
+                </div>
+            </div>
+
+        </div> </div> <div id="alertConfigModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAlertConfigModal()">&times;</span>
+            <h2>⚙️ Configure Alert Thresholds</h2>
+            <p style="margin-bottom: 20px; color: #4a7c59;">Set the minimum and maximum values for sensor alerts.</p>
+            
+            <div class="alert-config">
+                <h4>🌡️ Temperature (°C)</h4>
+                <div class="form-group">
+                    <label>Critical Low</label>
+                    <input type="number" value="18" placeholder="Critical Low">
+                </div>
+                <div class="form-group">
+                    <label>Critical High</label>
+                    <input type="number" value="35" placeholder="Critical High">
+                </div>
+            </div>
+            
+            <div class="alert-config">
+                <h4>💧 Soil Moisture (%)</h4>
+                <div class="form-group">
+                    <label>Critical Low (Dry)</label>
+                    <input type="number" value="25" placeholder="Critical Low">
+                </div>
+                <div class="form-group">
+                    <label>Critical High (Saturated)</label>
+                    <input type="number" value="75" placeholder="Critical High">
+                </div>
+            </div>
+
+            <button class="btn btn-full" onclick="saveAlertConfig()">💾 Save Configuration</button>
+        </div>
+    </div>
+
+    <script>
+        // --- Dummy Data and Functions for Demo ---
+
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
+            document.getElementById(tabId).style.display = 'block';
+            document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.nav-tab[onclick="showTab('${tabId}')"]`).classList.add('active');
+        }
+
+        function showLogin() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+        }
+
+        function showRegister() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        }
+
+        function proceedToLogin() {
+            document.getElementById('setupSection').style.display = 'none';
+            document.getElementById('authSection').style.display = 'block';
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Dummy authentication logic
+            document.getElementById('authSection').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            initChart();
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert("Registration successful! Logging you in...");
+            document.getElementById('authSection').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            initChart();
+        });
+
+        function logout() {
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('authSection').style.display = 'block';
+            showLogin();
+        }
+
+        function showHardwareInfo() {
+            alert("Redirecting to compatible hardware list...");
+        }
+
+        function showInstallationGuide() {
+            alert("Opening detailed installation guide...");
+        }
+
+        function testSensorConnection() {
+            alert("Initiating sensor connection test... Connection OK!");
+        }
+
+        function downloadFullPDF() {
+            alert("Generating and downloading complete guide PDF...");
+        }
+
+        function showOnlineStore() {
+            alert("Opening SmartFarm Online Store...");
+        }
+
+        function showVideoTutorial() {
+            alert("Opening Setup Video Tutorial on YouTube...");
+        }
+
+        function openAlertConfigModal() {
+            document.getElementById('alertConfigModal').style.display = 'block';
+        }
+
+        function closeAlertConfigModal() {
+            document.getElementById('alertConfigModal').style.display = 'none';
+        }
+
+        function saveAlertConfig() {
+            alert("Alert configuration saved successfully!");
+            closeAlertConfigModal();
+        }
+
+        function clearAlerts() {
+            document.getElementById('alertsContainer').innerHTML = `
+                <div class="alert">
+                    <strong>INFO:</strong> All previous alerts cleared. System operating within set parameters.
+                </div>
+            `;
+        }
+
+        function generateReport() {
+            document.getElementById('reportPreview').style.display = 'block';
+        }
+
+        function rescanSensors() {
+            alert("Rescanning for new and disconnected sensors...");
+        }
+
+        function updateFirmware() {
+            alert("Initiating firmware update to v1.5.0...");
+        }
+
+        function openProfileModal() {
+            alert("Opening profile editing modal...");
+        }
+
+        // Dummy Chart Initialization
+        let mainChart;
+        function initChart() {
+            if (mainChart) mainChart.destroy();
+            const ctx = document.getElementById('mainChart').getContext('2d');
+            mainChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Soil Moisture (%)',
+                        data: [45, 48, 42, 38, 40, 55, 50],
+                        borderColor: '#4caf50',
+                        backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'Temperature (°C)',
+                        data: [24, 26, 25, 27, 26, 22, 23],
+                        borderColor: '#ff6b35',
+                        backgroundColor: 'rgba(255, 107, 53, 0.1)',
+                        tension: 0.4,
+                        hidden: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Weekly Sensor Data Trend'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initial setup
+        document.addEventListener('DOMContentLoaded', () => {
+            // Placeholder for location and weather logic
+            document.getElementById('currentLocation').innerText = "Ibadan, Nigeria (7.3775, 3.9470)";
+            document.getElementById('weatherInfo').innerText = "Sunny, 25°C, 65% Humidity";
+        });
+    </script>
+</body>
+</html>
